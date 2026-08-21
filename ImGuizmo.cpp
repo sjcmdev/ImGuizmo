@@ -2009,7 +2009,7 @@ namespace IMGUIZMO_NAMESPACE
             ImVec2 worldDirSSpace = worldToPos((dirAxis * markerScale) * gContext.mScreenFactor, gContext.mMVPLocal);
 
             float distance = sqrtf(ImLengthSqr(worldDirSSpace - io.MousePos));
-            if (distance < 12.f)
+            if (distance < 20.f) // widened from 12 - see translate hit test comment above
             {
                type = MT_SCALE_X + i;
             }
@@ -2074,7 +2074,7 @@ namespace IMGUIZMO_NAMESPACE
          const ImVec2 distanceOnScreen = idealPosOnCircleScreen - io.MousePos;
 
          const float distance = makeVect(distanceOnScreen).Length();
-         if (distance < 8.f) // pixel size
+         if (distance < 14.f) // pixel size (widened from 8 - see translate hit test comment above)
          {
             if ((!isAxisMasked || isMultipleAxesMasked) && !isNoAxesMasked)
                break;
@@ -2126,7 +2126,7 @@ namespace IMGUIZMO_NAMESPACE
          const ImVec2 axisEndOnScreen = worldToPos(gContext.mModel.v.position + dirAxis * gContext.mScreenFactor, gContext.mViewProjection) - ImVec2(gContext.mX, gContext.mY);
 
          vec_t closestPointOnAxis = PointOnSegment(screenCoord, makeVect(axisStartOnScreen), makeVect(axisEndOnScreen));
-         if ((closestPointOnAxis - screenCoord).Length() < 12.f && Intersects(op, static_cast<OPERATION>(TRANSLATE_X << i))) // pixel size
+         if ((closestPointOnAxis - screenCoord).Length() < 20.f && Intersects(op, static_cast<OPERATION>(TRANSLATE_X << i))) // pixel size (widened from 12 - a thin 3D-projected line at 12px is very hard to land a real click on)
          {
             if (isAxisMasked)
                break;
